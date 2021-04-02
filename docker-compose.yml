@@ -1,0 +1,34 @@
+version: '3'
+# No campo Servidor colocar esse valor: mysqlsrv
+# User é padrão : root 
+# Na base de dados: deixar campo vazio
+services:
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "cadastro_bd"
+    volumes:
+      - ./volume:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  adminer:
+    image: adminer
+    ports:
+      - 8083:8080
+    networks:
+      - mysql-compose-network
+  
+  web:
+    image: alexolirib/cadastro:latest
+    ports:
+      - 8080:8080
+    depends_on: 
+      - mysqlsrv
+    networks: 
+      - mysql-compose-network
+
+networks: 
+  mysql-compose-network:
+    driver: bridge
