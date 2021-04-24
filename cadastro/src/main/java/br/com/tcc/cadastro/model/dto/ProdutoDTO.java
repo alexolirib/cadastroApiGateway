@@ -14,12 +14,15 @@ public class ProdutoDTO {
 
     private Integer categoriaId;
 
+    private Integer fornecedorId;
+
     public ProdutoDTO(Produto produto) {
         this.id = produto.getId();
         this.nome = produto.getNome();
         this.descricao = produto.getDescricao();
         this.valor = produto.getValor();
         this.categoriaId = produto.getCategoria().getId();
+        this.fornecedorId = produto.getFornecedor().getId();
     }
 
     public ProdutoDTO() {
@@ -64,4 +67,13 @@ public class ProdutoDTO {
     public void setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
     }
+
+    public Integer getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(Integer fornecedorId) {
+        this.fornecedorId = fornecedorId;
+    }
+
 }

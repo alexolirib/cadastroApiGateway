@@ -9,6 +9,8 @@ public class ProdutoCriarDTO {
 
     private Integer categoriaId;
 
+    private Integer fornecedorId;
+
     public String getNome() {
         return nome;
     }
@@ -39,5 +41,13 @@ public class ProdutoCriarDTO {
 
     public void setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
+    }
+
+    public Integer getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(Integer fornecedorId) {
+        this.fornecedorId = fornecedorId;
     }
 }
