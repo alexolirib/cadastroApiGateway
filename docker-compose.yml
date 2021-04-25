@@ -1,34 +1,38 @@
-version: '3'
-# No campo Servidor colocar esse valor: mysqlsrv
-# User é padrão : root 
-# Na base de dados: deixar campo vazio
-services:
-  mysqlsrv:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "cadastro_bd"
-    volumes:
-      - ./volume:/var/lib/mysql
-    networks:
-      - mysql-compose-network
+version: '3.8'
 
-  adminer:
-    image: adminer
+networks:
+  kong-net:
+   name: kong-net
+   driver: bridge
+   ipam:
+     config:
+       - subnet: 172.1.1.0/24
+
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
     ports:
-      - 8083:8080
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "kong"]
+      interval: 30s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - ./data:/var/lib/postgresql/data 
     networks:
-      - mysql-compose-network
-  
+      - kong-net
+      
   web:
     image: alexolirib/cadastro:latest
     ports:
       - 8080:8080
     depends_on: 
-      - mysqlsrv
+      - postgres-db
     networks: 
-      - mysql-compose-network
-
-networks: 
-  mysql-compose-network:
-    driver: bridge
+      - kong-net
