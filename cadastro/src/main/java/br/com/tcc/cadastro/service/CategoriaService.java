@@ -1,7 +1,9 @@
 package br.com.tcc.cadastro.service;
 
 import br.com.tcc.cadastro.model.Categoria;
+import br.com.tcc.cadastro.model.Fornecedor;
 import br.com.tcc.cadastro.model.dto.CategoriaCriarDTO;
+import br.com.tcc.cadastro.model.dto.CategoriaDTO;
 import br.com.tcc.cadastro.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +44,22 @@ public class CategoriaService {
         categoria.setNome(categoriaCriarDTO.getNome());
         return categoria;
     }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        Categoria categoria = new Categoria();
+        categoria.setId(categoriaDTO.getId());
+        categoria.setNome(categoriaDTO.getNome());
+
+        return categoria;
+    }
+
+    public Categoria update(Categoria categoria, Categoria categoriaUpdate) {
+        if(categoriaUpdate.getNome() != null){
+            categoria.setNome(categoriaUpdate.getNome());
+        }
+        categoriaRepository.save(categoria);
+
+        return categoria;
+    }
+
 }

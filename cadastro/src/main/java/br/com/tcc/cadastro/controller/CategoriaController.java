@@ -1,8 +1,10 @@
 package br.com.tcc.cadastro.controller;
 
 import br.com.tcc.cadastro.model.Categoria;
+import br.com.tcc.cadastro.model.Produto;
 import br.com.tcc.cadastro.model.dto.CategoriaCriarDTO;
 import br.com.tcc.cadastro.model.dto.CategoriaDTO;
+import br.com.tcc.cadastro.model.dto.ProdutoDTO;
 import br.com.tcc.cadastro.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +47,19 @@ public class CategoriaController {
         }
         return ResponseEntity.ok().body(new CategoriaDTO(categoria));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<CategoriaDTO> update(@PathVariable("id") Integer id, @RequestBody final CategoriaDTO categoriaDTO){
+        Categoria categoria = categoriaService.obterPorId(id);
+        if (categoria == null){
+            return ResponseEntity.notFound().build();
+        }
+        Categoria categoriaUpdate = categoriaService.fromDTO(categoriaDTO);
+        categoria = categoriaService.update(categoria, categoriaUpdate);
+
+        return ResponseEntity.ok().body(new CategoriaDTO(categoria));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id){

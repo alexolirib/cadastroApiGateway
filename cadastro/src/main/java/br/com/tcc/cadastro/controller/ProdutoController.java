@@ -1,6 +1,8 @@
 package br.com.tcc.cadastro.controller;
 
+import br.com.tcc.cadastro.model.Fornecedor;
 import br.com.tcc.cadastro.model.Produto;
+import br.com.tcc.cadastro.model.dto.FornecedorDTO;
 import br.com.tcc.cadastro.model.dto.ProdutoCriarDTO;
 import br.com.tcc.cadastro.model.dto.ProdutoDTO;
 import br.com.tcc.cadastro.service.ProdutoService;
@@ -45,6 +47,19 @@ public class ProdutoController {
         }
         return ResponseEntity.ok().body(new ProdutoDTO(produto));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ProdutoDTO> update(@PathVariable("id") Integer id, @RequestBody final ProdutoDTO produtoDTO){
+        Produto produto = produtoService.obterPorId(id);
+        if (produto == null){
+            return ResponseEntity.notFound().build();
+        }
+        Produto produtoUpdate = produtoService.fromDTO(produtoDTO);
+        produto = produtoService.update(produto, produtoUpdate);
+
+        return ResponseEntity.ok().body(new ProdutoDTO(produto));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id){

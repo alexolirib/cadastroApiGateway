@@ -2,6 +2,7 @@ package br.com.tcc.cadastro.service;
 
 import br.com.tcc.cadastro.model.Fornecedor;
 import br.com.tcc.cadastro.model.dto.FornecedorCriarDTO;
+import br.com.tcc.cadastro.model.dto.FornecedorDTO;
 import br.com.tcc.cadastro.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,10 +37,36 @@ public class FornecedorService {
         fornecedorRepository.deleteById(id);
     }
 
-    public Fornecedor fromDTO(FornecedorCriarDTO categoriaCriarDTO){
+    public Fornecedor fromDTO(FornecedorCriarDTO fornecedorCriarDTO){
         Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setCnpj(categoriaCriarDTO.getCnpj());
-        fornecedor.setNomeFantasia(categoriaCriarDTO.getNomeFantasia());
+        fornecedor.setCnpj(fornecedorCriarDTO.getCnpj());
+        fornecedor.setNomeFantasia(fornecedorCriarDTO.getNomeFantasia());
+        fornecedor.setRazaoSocial(fornecedorCriarDTO.getRazaoSocial());
+        return fornecedor;
+    }
+
+    public Fornecedor fromDTO(FornecedorDTO fornecedorDTO){
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setId(fornecedorDTO.getId());
+        fornecedor.setRazaoSocial(fornecedorDTO.getRazaoSocial());
+        fornecedor.setNomeFantasia(fornecedorDTO.getNomeFantasia());
+        fornecedor.setCnpj(fornecedorDTO.getCnpj());
+
+        return fornecedor;
+    }
+
+    public Fornecedor update(Fornecedor fornecedor, Fornecedor fornecedorUpdate) {
+        if(fornecedorUpdate.getRazaoSocial() != null){
+            fornecedor.setRazaoSocial(fornecedorUpdate.getRazaoSocial());
+        }
+        if(fornecedorUpdate.getCnpj() != null){
+            fornecedor.setCnpj(fornecedorUpdate.getCnpj());
+        }
+        if(fornecedorUpdate.getNomeFantasia() != null){
+            fornecedor.setNomeFantasia(fornecedorUpdate.getNomeFantasia());
+        }
+        fornecedorRepository.save(fornecedor);
+
         return fornecedor;
     }
 }

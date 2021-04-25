@@ -44,6 +44,18 @@ public class FornecedorController {
         return ResponseEntity.ok().body(new FornecedorDTO(fornecedor));
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<FornecedorDTO> update(@PathVariable("id") Integer id, @RequestBody final FornecedorDTO fornecedorDTO){
+        Fornecedor fornecedor = fornecedorService.obterPorId(id);
+        if (fornecedor == null){
+            return ResponseEntity.notFound().build();
+        }
+        Fornecedor fornecedorUpdate = fornecedorService.fromDTO(fornecedorDTO);
+        fornecedor = fornecedorService.update(fornecedor, fornecedorUpdate);
+
+        return ResponseEntity.ok().body(new FornecedorDTO(fornecedor));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id){
         Fornecedor fornecedor = fornecedorService.obterPorId(id);
