@@ -101,7 +101,7 @@ services:
     depends_on:
       - konga-prepare
     ports:
-      - "1338:1337"
+      - "1337:1337"
       
   categoria:
     image: alexolirib/cadastro:latest
