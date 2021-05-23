@@ -105,6 +105,8 @@ services:
       
   categoria:
     image: alexolirib/cadastro:latest
+    environment:
+      - CONTEXTO_APLICACAO_CONFIG=categoria
     depends_on: 
       - konga
     networks:
@@ -114,6 +116,8 @@ services:
       
   fornecedor:
     image: alexolirib/cadastro:latest
+    environment:
+      - CONTEXTO_APLICACAO_CONFIG=fornecedor
     depends_on: 
       - konga
     networks: 
@@ -122,17 +126,10 @@ services:
       
   produto:
     image: alexolirib/cadastro:latest
+    environment:
+      - CONTEXTO_APLICACAO_CONFIG=produto
     depends_on: 
       - konga
     networks: 
       kong-net:
         ipv4_address: 172.1.1.13
-  
-  swagger:
-    image: alexolirib/cadastro:latest
-    depends_on: 
-      - konga
-    networks: 
-      kong-net:
-        ipv4_address: 172.1.1.14
-  

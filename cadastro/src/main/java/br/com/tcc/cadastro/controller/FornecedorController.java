@@ -3,6 +3,7 @@ import br.com.tcc.cadastro.model.Fornecedor;
 import br.com.tcc.cadastro.model.dto.FornecedorCriarDTO;
 import br.com.tcc.cadastro.model.dto.FornecedorDTO;
 import br.com.tcc.cadastro.service.FornecedorService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/fornecedores")
+@RequestMapping("/api/v1/fornecedor")
+@Api(tags={"fornecedor"})
 public class FornecedorController {
     @Autowired
     private FornecedorService fornecedorService;

@@ -6,6 +6,7 @@ import br.com.tcc.cadastro.model.dto.FornecedorDTO;
 import br.com.tcc.cadastro.model.dto.ProdutoCriarDTO;
 import br.com.tcc.cadastro.model.dto.ProdutoDTO;
 import br.com.tcc.cadastro.service.ProdutoService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/produtos")
+@RequestMapping("/api/v1/produto")
+@Api(tags={"produto"})
 public class ProdutoController {
 
     @Autowired

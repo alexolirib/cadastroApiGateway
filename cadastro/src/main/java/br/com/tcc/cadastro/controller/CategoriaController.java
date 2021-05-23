@@ -6,6 +6,7 @@ import br.com.tcc.cadastro.model.dto.CategoriaCriarDTO;
 import br.com.tcc.cadastro.model.dto.CategoriaDTO;
 import br.com.tcc.cadastro.model.dto.ProdutoDTO;
 import br.com.tcc.cadastro.service.CategoriaService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/categorias")
+@RequestMapping("/api/v1/categoria")
+@Api(tags={"categoria"})
 public class CategoriaController {
 
     @Autowired
